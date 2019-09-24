@@ -4,6 +4,9 @@
 import os, time, logging
 from dotenv import load_dotenv
 from splinter import Browser
+from xvfbwrapper import Xvfb
+from selenium.webdriver.chrome.options import Options
+
 
 class SyncOpenpilot:
 
@@ -24,14 +27,15 @@ class SyncOpenpilot:
     # 是否显示界面
     headless    = True
 
-    def __init__(self, logger, user, passwd):
-        self.logger = logger
-        self.user   = user
-        self.passwd = passwd
+    def __init__(self, logger, options, user, passwd):
+        self.logger  = logger
+        self.user    = user
+        self.passwd  = passwd
+        self.options = options
 
     def run(self):
         self.logger.info('initBrowser')
-        self.browser = Browser('chrome', headless=self.headless)
+        self.browser = Browser('chrome', headless=self.headless, options=self.options)
         self.browser.visit(self.loginUrl)
 
         # 填写用户名密码
@@ -99,5 +103,12 @@ if __name__ == "__main__":
 
     logger.setLevel(logging.INFO) 
 
-    handler = SyncOpenpilot(logger, user, passwd)
+
+    vdisplay = Xvfb()
+    vdisplay.start()
+    options = Options()
+    options.add_argument("--no-sandbox")
+    options.add_argument("--disable-setuid-sandbox")
+    handler = SyncOpenpilot(logger, options, user, passwd)
     handler.run()
+    vdisplay.stop()

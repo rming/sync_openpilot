@@ -1,2 +1,4 @@
 splinter==0.10.0
-python-dotenv==0.9.1
+selenium==3.141.0
+python-dotenv==0.10.3
+xvfbwrapper==0.2.9
