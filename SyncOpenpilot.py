@@ -21,7 +21,8 @@ class SyncOpenpilot:
 
     logger      = None
     browser     = None
-    headless    = False
+    # 是否显示界面
+    headless    = True
 
     def __init__(self, logger, user, passwd):
         self.logger = logger
@@ -34,6 +35,7 @@ class SyncOpenpilot:
         self.browser.visit(self.loginUrl)
 
         # 填写用户名密码
+        self.logger.info('doLogin')
         self.browser.find_by_name('user[login]').fill(self.user)
         self.browser.find_by_name('user[password]').fill(self.passwd)
 
@@ -67,7 +69,6 @@ class SyncOpenpilot:
         btnClickSuccess = False
         while seconds <= secondsMaxWait:
             btnOK = self.browser.find_by_css('div[class="ui small button orange ok"]')
-            self.logger.info(btnOK)
             if btnOK:
                 self.logger.info('sync btn found')
                 btnOK and btnOK.click()
