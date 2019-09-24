@@ -46,5 +46,6 @@ vi .env
 ### 运行
 
 ```bash
-python SyncOpenpilot.py
+# 使用 root 权限运行
+sudo python SyncOpenpilot.py
 ```
