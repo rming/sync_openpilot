@@ -44,30 +44,43 @@ class SyncOpenpilot:
 
         # 依次访问项目页面，点击同步github
         for repoUrl in self.repoUrls:
-            self.browser.visit(repoUrl)
-            self.logger.info('visit repo %s' % repoUrl)
-            btn = self.browser.find_by_id("btn-sync-from-github")
-            btn and btn.click()
-            time.sleep(1)
-
-            times = 0
-            while times < 10:
-                times += 1
-                btnOK = self.browser.find_by_css('div[class="ui small button orange ok"]')
-                self.logger.info(btnOK)
-                if btnOK:
-                    self.logger.info('sync btn found')
-                    self.logger.info(btnOK)
-                    btnOK and btnOK.click()
-                    time.sleep(1)
-                    break
-                else:
-                    self.logger.error('sync btn not found')
-                    time.sleep(1)
+            for k in range(0, 3):
+                self.visitRepo(repoUrl)
+                res = self.clickSync(repoUrl)
+                if res: break
 
         self.browser.quit()
 
+
+    def visitRepo(self, repoUrl):
+        self.browser.visit(repoUrl)
+        self.logger.info('visit repo %s' % repoUrl)
+        btn = self.browser.find_by_id("btn-sync-from-github")
+        btn and btn.click()
+        time.sleep(1)
     
+    def clickSync(self, repoUrl):
+        seconds = 0
+        # 每秒查询一下按钮是否可用，10秒超时
+        secondsMaxWait = 10
+        # 是否点击同步按钮成功
+        btnClickSuccess = False
+        while seconds <= secondsMaxWait:
+            btnOK = self.browser.find_by_css('div[class="ui small button orange ok"]')
+            self.logger.info(btnOK)
+            if btnOK:
+                self.logger.info('sync btn found')
+                btnOK and btnOK.click()
+                btnClickSuccess = True
+                time.sleep(1)
+                break
+            else:
+                self.logger.error('sync btn not found')
+                btnClickSuccess = False
+                time.sleep(1)
+            seconds = seconds + 1
+        return btnClickSuccess
+
 if __name__ == "__main__":
     load_dotenv('.env')
     user   = os.getenv('GITEE_USER')
