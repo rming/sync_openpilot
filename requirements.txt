@@ -2,3 +2,4 @@ splinter==0.10.0
 selenium==3.141.0
 python-dotenv==0.10.3
 xvfbwrapper==0.2.9
+six==1.12.0
