@@ -64,7 +64,7 @@ class SyncOpenpilot:
                 "authenticity_token" : csrfToken,
             }
             r = self.s.post(repoUrl + "/force_sync_project", data=payload)
-            print repoUrl.split("/").pop(), r.text
+            print repoUrl.split("/").pop(), r.text.encode('utf8')
 
 
 if __name__ == "__main__":
