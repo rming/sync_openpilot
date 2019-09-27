@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 #-*- coding:utf-8 -*-
 
+import time
 import os
 import requests
 from pyquery import PyQuery as pq
@@ -51,6 +52,7 @@ class SyncOpenpilot:
         r = self.s.post(self.loginUrl, data=payload)
 
         # 依次访问项目页面，点击同步github
+        print "最后更新时间：%s" % time.strftime("%Y-%m-%d %H:%M:%S")
         for repoUrl in self.repoUrls:
             r = self.s.get(repoUrl)
             d = pq(r.text)
@@ -62,7 +64,7 @@ class SyncOpenpilot:
                 "authenticity_token" : csrfToken,
             }
             r = self.s.post(repoUrl + "/force_sync_project", data=payload)
-            print repoUrl, r.text
+            print repoUrl.split("/").pop(), r.text
 
 
 if __name__ == "__main__":
