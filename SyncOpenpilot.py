@@ -13,6 +13,7 @@ class SyncOpenpilot:
     repoUrls = [
         "https://gitee.com/afaaa/dragonpilot",
         "https://gitee.com/afaaa/openpilot",
+        "https://gitee.com/afaaa/openpilot-cn",
         "https://gitee.com/afaaa/kegman",
         "https://gitee.com/afaaa/gernby",
         "https://gitee.com/afaaa/arne182",
