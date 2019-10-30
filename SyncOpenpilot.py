@@ -17,6 +17,7 @@ class SyncOpenpilot:
         "https://gitee.com/afaaa/gernby",
         "https://gitee.com/afaaa/kegman",
         "https://gitee.com/afaaa/arne182",
+        "https://gitee.com/afaaa/openpilot_install",
     ]
 
     user   = ""
