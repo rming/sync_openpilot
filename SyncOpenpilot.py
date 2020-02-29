@@ -17,7 +17,7 @@ class SyncOpenpilot:
         "https://gitee.com/afaaa/gernby",
         "https://gitee.com/afaaa/kegman",
         "https://gitee.com/afaaa/arne182",
-        "https://gitee.com/afaaa/openpilot_install",
+        "https://github.com/gernby/raspberry-pilot",
     ]
 
     user   = ""
@@ -61,7 +61,7 @@ class SyncOpenpilot:
             csrfToken = d('[name="csrf-token"]').attr('content')
             payload = {
                 "user_sync_code"     : "",
-                "password_sync_code" :"", 
+                "password_sync_code" :"",
                 "sync_wiki"          : "false",
                 "authenticity_token" : csrfToken,
             }
